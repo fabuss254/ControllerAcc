@@ -35,7 +35,7 @@ bot.on("message", function(message){
         });
       };
       
-      message.channel.send("Finished! \n\nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + Date.now() - Now);
+      message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now));
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else{
