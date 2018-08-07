@@ -17,7 +17,7 @@ bot.on("ready", function(){
 bot.on("message", function(message){
   if (message.author.equals(bot.user) || message.channel.id != co || message.author.id != owner) return;
     var args = message.content.split(" ");
-    if (args[0].toLowerCase() == "testlogin"){
+    if (args[0].toLowerCase() == "login"){
       message.channel.send("Login in...")
       var Failed = 0
       var Success = 0
@@ -36,9 +36,29 @@ bot.on("message", function(message){
       };
       bot.setTimeout(function(){
         message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now) + " ms");
-      }, acc.length * 5000);
+      }, acc.length * 500);
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
+    }else if(args[0].toLowerCase() == "group"){
+      if(args[1].toLowerCase() == "join"){
+        rbx.joinGroup(Number(args[2])).then(function(){
+          message.channel.send("Successfully joined group " + Number(args[2]));
+          bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]))
+        })
+        .catch(function(err){
+          bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": " + err.stack);
+        });
+      }else if(args[1].toLowerCase() == "leave"){
+        rbx.leaveGroup(Number(args[2])).then(function(){
+          message.channel.send("Successfully leaved group " + Number(args[2]));
+          bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]))
+        })
+        .catch(function(err){
+          bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": " + err.stack);
+        });    
+      }else{
+        message.channel.send("Invalid sub-command.")
+      }
     }else{
       message.channel.send("Invalid command.")
     }
