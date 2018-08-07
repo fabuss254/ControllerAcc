@@ -63,20 +63,20 @@ bot.on("message", function(message){
     }else if(args[0].toLowerCase() == "follow"){
         rbx.follow(Number(args[1]))
         .then(function(){
-          message.channel.send("Successfully followed " + args[2]);
-          bot.channels.get(ch).send("**[STATEMENT]** Followed " + args[2]);
+          message.channel.send("Successfully followed " + args[1]);
+          bot.channels.get(ch).send("**[STATEMENT]** Followed " + args[1]);
         })
         .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + args[2] + ": \n" + err.stack);
+          bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + args[1] + ": \n" + err.stack);
         });
       }else if(args[0].toLowerCase() == "unfollow"){
         rbx.unfollow(Number(args[1]))
         .then(function(){
-          message.channel.send("Successfully unfollowed " + args[2]);
-          bot.channels.get(ch).send("**[STATEMENT]** Unfollowed " + args[2]);
+          message.channel.send("Successfully unfollowed " + args[1]);
+          bot.channels.get(ch).send("**[STATEMENT]** Unfollowed " + args[1]);
         })
         .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + args[2] + ": \n" + err.stack);
+          bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + args[1] + ": \n" + err.stack);
         });
     }else{
       message.channel.send("Invalid command.")
