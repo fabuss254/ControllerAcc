@@ -22,7 +22,7 @@ bot.on("message", function(message){
       var Failed = 0
       var Success = 0
       var Now = Date.now()
-      childProcess.execSync(for (var i = 0, len = acc.length; i < len; i++) {
+      childProcess.execSync('for (var i = 0, len = acc.length; i < len; i++) {
         var v = acc[i]
         rbx.login(v) //({username: 'shedletsky',password: 'hunter2'})
         .then(function(){
@@ -33,7 +33,7 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR LOGIN INTO " + v.username + " ACCOUNT: " + err.stack);
           Failed = Failed + 1
         });
-      });
+      }');
       
       message.channel.send("Finished! \n
                            ```\n
