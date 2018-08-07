@@ -24,7 +24,7 @@ bot.on("message", function(message){
       var Now = Date.now()
       for (var i = 0, len = acc.length; i < len; i++) {
         var v = acc[i]
-        rbx.login(options)
+        rbx.login(v) //({username: 'shedletsky',password: 'hunter2'})
         .then(function(){
           bot.channels.get(ch).send("**[STATEMENT]** Successfully login into "+ v.username +" account")
           Success = Success + 1
