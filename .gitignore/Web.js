@@ -8,6 +8,7 @@ var bot = new Discord.Client();
 var ch = "476389923574775823";
 var co = "476391476318830598";
 var owner = "178131193768706048";
+var cookie = rbx.jar();
 
 
 bot.on("ready", function(){
@@ -41,7 +42,7 @@ bot.on("message", function(message){
       message.channel.send("Accounts: " + acc.length)
     }else if(args[0].toLowerCase() == "group"){
       if(args[1].toLowerCase() == "join"){
-        rbx.joinGroup(Number(args[2]), true, rbx.jar()).then(function(){
+        rbx.joinGroup(Number(args[2]), true).then(function(){
           message.channel.send("Successfully joined group " + Number(args[2]));
           bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]))
         })
@@ -49,7 +50,7 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": " + err.stack);
         });
       }else if(args[1].toLowerCase() == "leave"){
-        rbx.leaveGroup(Number(args[2]), true, rbx.jar()).then(function(){
+        rbx.leaveGroup(Number(args[2]), true).then(function(){
           message.channel.send("Successfully leaved group " + Number(args[2]));
           bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]))
         })
