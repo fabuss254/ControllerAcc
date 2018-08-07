@@ -18,7 +18,6 @@ bot.on("message", function(message){
     var args = message.content.split(" ");
     if (args[0].toLowerCase() == "testlogin"){
       message.channel.send("Login in...")
-      var remaining = acc.length
       var Failed
       var Success
       var Now = Date.now()
@@ -33,10 +32,9 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR LOGIN INTO " + v.username + " ACCOUNT: " + err.stack);
           Failed = Failed + 1
         });
-        remaining = remaining - 1
       };
       
-      message.channel.send("Finished! \n```\nSuccess: "+Success || 0+"\nFailed: " + Failed || 0 + "\nRun in: " + Date.now() - Now + "\n```")
+      message.channel.send("Finished! \n```\nSuccess: "+(Success || 0)+"\nFailed: " + (Failed || 0) + "\nRun in: " + Date.now() - Now + "\n```")
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else{
