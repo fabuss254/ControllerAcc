@@ -23,8 +23,7 @@ bot.on("message", function(message){
       var Failed = 0
       var Success = 0
       var Now = Date.now()
-      for (var i = 0, len = acc.length; i < len; i++) {
-        var v = acc[i]
+      acc.forEach(function(v){
         rbx.login(v) //({username: 'shedletsky',password: 'hunter2'})
         .then(function(){
           bot.channels.get(ch).send("**[STATEMENT]** Successfully login into "+ v.username +" account")
@@ -34,10 +33,10 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR LOGIN INTO " + v.username + " ACCOUNT: " + err.stack);
           Failed = Failed + 1
         });
-      };
+      });
       bot.setTimeout(function(){
         message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now) + " ms");
-      }, acc.length * 500);
+      }, acc.length * 1000);
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else if(args[0].toLowerCase() == "group"){
