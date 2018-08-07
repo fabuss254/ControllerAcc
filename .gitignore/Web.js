@@ -85,9 +85,8 @@ bot.on("message", function(message){
           .catch(function(err){
             bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + args[1] + ": \n" + err.stack);
           });
-        });
       });
-      message.channel.send("Successfully followed " + args[1]);
+      message.channel.send("Finished following " + args[1]);
       }else if(args[0].toLowerCase() == "unfollow"){
         fl(function(v){
           rbx.unfollow(Number(args[1]))
@@ -99,6 +98,7 @@ bot.on("message", function(message){
             bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + args[1] + ": \n" + err.stack);
           });
         });
+       message.channel.send("Finished unfollowing " + args[1]);
     }else{
       message.channel.send("Invalid command.")
     }
