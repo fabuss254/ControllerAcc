@@ -33,7 +33,7 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR LOGIN INTO " + v.username + " ACCOUNT: " + err.stack);
           Failed = Failed + 1
         });
-      });
+      };
       
       message.channel.send("Finished! \n\nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + Date.now() - Now);
     }else if(args[0].toLowerCase() == "accounts"){
