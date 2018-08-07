@@ -34,7 +34,7 @@ bot.on("message", function(message){
           Failed = Failed + 1
         });
         remaining = remaining - 1
-      });
+      };
       
       message.channel.send("Finished! \n```\nSuccess: "+Success || 0+"\nFailed: " + Failed || 0 + "\nRun in: " + Date.now() - Now + "\n```")
     }else if(args[0].toLowerCase() == "accounts"){
