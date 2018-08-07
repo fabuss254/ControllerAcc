@@ -44,19 +44,37 @@ bot.on("message", function(message){
       if(args[1].toLowerCase() == "join"){
         rbx.joinGroup(Number(args[2]), true).then(function(){
           message.channel.send("Successfully joined group " + Number(args[2]));
-          bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]))
+          bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]));
         })
         .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": " + err.stack);
+          bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": \n" + err.stack);
         });
       }else if(args[1].toLowerCase() == "leave"){
         rbx.leaveGroup(Number(args[2]), true).then(function(){
           message.channel.send("Successfully leaved group " + Number(args[2]));
-          bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]))
+          bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]));
         })
         .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": " + err.stack);
-        });    
+          bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": \n" + err.stack);
+        });  
+      }else if(args[0].toLowerCase() == "follow"){
+        rbx.follow(Number(args[1]))
+        .then(function(){
+          message.channel.send("Successfully followed " + Number(args[2]));
+          bot.channels.get(ch).send("**[STATEMENT]** Followed " + Number(args[2]));
+        })
+        .catch(function(err){
+          bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + Number(args[2]) + ": \n" + err.stack);
+        });
+      }else if(args[0].toLowerCase() == "unfollow"){
+        rbx.unfollow(Number(args[1]))
+        .then(function(){
+          message.channel.send("Successfully unfollowed " + Number(args[2]));
+          bot.channels.get(ch).send("**[STATEMENT]** Unfollowed " + Number(args[2]));
+        })
+        .catch(function(err){
+          bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + Number(args[2]) + ": \n" + err.stack);
+        });
       }else{
         message.channel.send("Invalid sub-command.")
       }
