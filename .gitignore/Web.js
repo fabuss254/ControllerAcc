@@ -34,8 +34,9 @@ bot.on("message", function(message){
           Failed = Failed + 1
         });
       };
-      
-      message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now));
+      bot.setTimeout(function(){
+        message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now));
+      }, acc.length * 5000);
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else{
