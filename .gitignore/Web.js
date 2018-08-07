@@ -18,8 +18,8 @@ bot.on("message", function(message){
     var args = message.content.split(" ");
     if (args[0].toLowerCase() == "testlogin"){
       message.channel.send("Login in...")
-      var Failed
-      var Success
+      var Failed = 0
+      var Success = 0
       var Now = Date.now()
       for (var i = 0, len = acc.length; i < len; i++) {
         var v = acc[i]
@@ -34,12 +34,16 @@ bot.on("message", function(message){
         });
       };
       
-      message.channel.send("Finished! \n```\nSuccess: "+(Success || 0)+"\nFailed: " + (Failed || 0) + "\nRun in: " + Date.now() - Now + "\n```")
+      message.channel.send("Finished! \n```\nSuccess: "+ Success +"\nFailed: " + Failed + "\nRun in: " + Date.now() - Now + "\n```")
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else{
       message.channel.send("Invalid command.")
     }
+});
+
+bot.on("disconnect", function(){
+  bot.channels.get(ch).send("**[STATEMENT]** Stopping the bot...")
 });
 
 bot.login(process.env.TOKEN);
