@@ -9,11 +9,24 @@ var ch = "476389923574775823";
 var co = "476391476318830598";
 var owner = "178131193768706048";
 var cookie = rbx.jar();
+var TimeoutMs = 750
 
 
 bot.on("ready", function(){
   bot.channels.get(ch).send("**[STATEMENT]** Restarted successfully!")
 });
+
+function fl(fn){
+  acc.forEach(function(v){
+  rbx.login(v) //({username: 'shedletsky',password: 'hunter2'})
+  .then(function(){
+        fn(v)
+  })
+  .catch(function(err){
+  console.log("Error login into " + v.username + " account");
+  });
+ });
+}
 
 bot.on("message", function(message){
   if (message.author.equals(bot.user) || message.channel.id != co || message.author.id != owner) return;
@@ -36,46 +49,55 @@ bot.on("message", function(message){
       });
       bot.setTimeout(function(){
         message.channel.send("Finished! \nSuccess: " + Success + "\nFailed: " + Failed + "\nRun in: " + (Date.now() - Now) + " ms");
-      }, acc.length * 1000);
+      }, acc.length * TimeoutMs);
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else if(args[0].toLowerCase() == "group"){
       if(args[1].toLowerCase() == "join"){
-        rbx.joinGroup(Number(args[2]), true).then(function(){
-          message.channel.send("Successfully joined group " + Number(args[2]));
-          bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]));
-        })
-        .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": \n" + err.stack);
+        fl(function(){
+          rbx.joinGroup(Number(args[2]), true).then(function(){
+            message.channel.send("Successfully joined group " + Number(args[2]));
+            bot.channels.get(ch).send("**[STATEMENT]** Joined group " + Number(args[2]));
+          })
+          .catch(function(err){
+            bot.channels.get(ch).send("**[ERROR]** ERROR JOINING GROUP " + Number(args[2]) + ": \n" + err.stack);
+          });
         });
       }else if(args[1].toLowerCase() == "leave"){
-        rbx.leaveGroup(Number(args[2]), true).then(function(){
-          message.channel.send("Successfully leaved group " + Number(args[2]));
-          bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]));
-        })
-        .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": \n" + err.stack);
-        });  
+        fl(function(){
+          rbx.leaveGroup(Number(args[2]), true).then(function(){
+            message.channel.send("Successfully leaved group " + Number(args[2]));
+            bot.channels.get(ch).send("**[STATEMENT]** Leaved group " + Number(args[2]));
+          })
+          .catch(function(err){
+            bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": \n" + err.stack);
+          });  
+        });
       }else{
         message.channel.send("Invalid sub-command.")
       }
     }else if(args[0].toLowerCase() == "follow"){
+      fl(function(){
         rbx.follow(Number(args[1]))
-        .then(function(){
-          message.channel.send("Successfully followed " + args[1]);
-          bot.channels.get(ch).send("**[STATEMENT]** Followed " + args[1]);
-        })
-        .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + args[1] + ": \n" + err.stack);
+          .then(function(){
+            bot.channels.get(ch).send("**[STATEMENT]** Followed " + args[1]);
+          })
+          .catch(function(err){
+            bot.channels.get(ch).send("**[ERROR]** ERROR FOLLOWING " + args[1] + ": \n" + err.stack);
+          });
         });
+      });
+      message.channel.send("Successfully followed " + args[1]);
       }else if(args[0].toLowerCase() == "unfollow"){
-        rbx.unfollow(Number(args[1]))
-        .then(function(){
-          message.channel.send("Successfully unfollowed " + args[1]);
-          bot.channels.get(ch).send("**[STATEMENT]** Unfollowed " + args[1]);
-        })
-        .catch(function(err){
-          bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + args[1] + ": \n" + err.stack);
+        fl(function(v){
+          rbx.unfollow(Number(args[1]))
+          .then(function(){
+            message.channel.send("Successfully unfollowed " + args[1]);
+            bot.channels.get(ch).send("**[STATEMENT]** Unfollowed " + args[1]);
+          })
+          .catch(function(err){
+            bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + args[1] + ": \n" + err.stack);
+          });
         });
     }else{
       message.channel.send("Invalid command.")
