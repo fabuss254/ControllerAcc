@@ -38,7 +38,7 @@ bot.on("message", function(message){
       
       message.channel.send("Finished! \n```\nSuccess: "+Success || 0+"\nFailed: " + Failed || 0 + "\nRun in: " + Date.now() - Now + "\n```")
     }else if(args[0].toLowerCase() == "accounts"){
-      message.channel.send("Accounts: "..acc.length)
+      message.channel.send("Accounts: " + acc.length)
     }else{
       message.channel.send("Invalid command.")
     }
