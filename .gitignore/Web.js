@@ -3,6 +3,7 @@ const request = require('request').defaults({ encoding: null });
 const http = require("http");
 const rbx = require('roblox-js');
 const acc = JSON.parse(process.env.ACC);
+const childProcess = require('child_process');
 var bot = new Discord.Client();
 var ch = "476389923574775823";
 var co = "476391476318830598";
@@ -21,7 +22,7 @@ bot.on("message", function(message){
       var Failed = 0
       var Success = 0
       var Now = Date.now()
-      for (var i = 0, len = acc.length; i < len; i++) {
+      childProcess.execSync(for (var i = 0, len = acc.length; i < len; i++) {
         var v = acc[i]
         rbx.login(v) //({username: 'shedletsky',password: 'hunter2'})
         .then(function(){
@@ -32,9 +33,14 @@ bot.on("message", function(message){
           bot.channels.get(ch).send("**[ERROR]** ERROR LOGIN INTO " + v.username + " ACCOUNT: " + err.stack);
           Failed = Failed + 1
         });
-      };
+      });
       
-      message.channel.send("Finished! \n```\nSuccess: "+ Success +"\nFailed: " + Failed + "\nRun in: " + Date.now() - Now + "\n```")
+      message.channel.send("Finished! \n
+                           ```\n
+      Success: " + Success + "\n
+      Failed: " + Failed + "\n
+      Run in: " + Date.now() - Now + "\n
+      ```");
     }else if(args[0].toLowerCase() == "accounts"){
       message.channel.send("Accounts: " + acc.length)
     }else{
