@@ -11,7 +11,7 @@ bot.on("ready", function(){
   bot.channels.get(ch).send("Restarted successfully!")
 });
 
-bot.on("message", function(){
+bot.on("message", function(message){
   if (message.author.equals(bot.user) || message.channel.id != co || message.author.id != owner) return;
     var args = message.content.split(" ");
     if (args[0].toLowerCase() == "login"){
