@@ -57,7 +57,10 @@ bot.on("message", function(message){
         .catch(function(err){
           bot.channels.get(ch).send("**[ERROR]** ERROR LEAVING GROUP " + Number(args[2]) + ": \n" + err.stack);
         });  
-      }else if(args[0].toLowerCase() == "follow"){
+      }else{
+        message.channel.send("Invalid sub-command.")
+      }
+    }else if(args[0].toLowerCase() == "follow"){
         rbx.follow(Number(args[1]))
         .then(function(){
           message.channel.send("Successfully followed " + Number(args[2]));
@@ -75,9 +78,6 @@ bot.on("message", function(message){
         .catch(function(err){
           bot.channels.get(ch).send("**[ERROR]** ERROR UNFOLLOWING " + Number(args[2]) + ": \n" + err.stack);
         });
-      }else{
-        message.channel.send("Invalid sub-command.")
-      }
     }else{
       message.channel.send("Invalid command.")
     }
